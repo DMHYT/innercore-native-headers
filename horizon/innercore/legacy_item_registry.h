@@ -2,6 +2,7 @@
 #define INNER_CORE_ITEMS_LEGACY_H
 
 #include <string>
+#include <unordered_map>
 #include <vector>
 #include "item_extra.h"
 #include "item_registry.h"
@@ -64,7 +65,7 @@ namespace LegacyItemRegistry {
 		virtual void registerItem();
 		void initParameters(int id, std::string nameId, std::string name, std::string textureName, int textureIndex);
 		void applyProperties();
-		virtual LegacyItemProviderType getType();
+		virtual int getType();
 	};
 
 	class LegacyItemFactory : public LegacyItemFactoryBase {
@@ -73,7 +74,7 @@ namespace LegacyItemRegistry {
         ~LegacyItemFactory();
 
 		virtual void registerItem();
-		virtual LegacyItemProviderType getType();
+		virtual int getType();
 	};
     
 	
@@ -114,6 +115,9 @@ namespace LegacyItemRegistry {
 	LegacyItemFactoryBase* findFactoryById(int id);
 	void addItemToCreative(std::string id, int count, int data, ItemInstanceExtra* extra);
 	void addItemToCreative(int id, int count, int data, ItemInstanceExtra* extra);
+	
+	extern std::unordered_map<int, LegacyItemFactoryBase*> registeredFactories;
+	
 };
 
 #endif
